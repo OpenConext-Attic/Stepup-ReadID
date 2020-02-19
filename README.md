@@ -1,9 +1,7 @@
 Stepup-ReadID
 ===================
 
-<a href="#">
-    <img src="https://travis-ci.org/OpenConext/Stepup-ReadID.svg?branch=develop" alt="build:">
-</a></br>
+![test-integration](https://github.com/OpenConext/Stepup-ReadID/workflows/test-integration/badge.svg)
 
 IdP for ReadId integration 
 
