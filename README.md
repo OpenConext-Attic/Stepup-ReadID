@@ -88,6 +88,8 @@ To run all required test you can run the following commands from the dev env:
 
 Every part can be run separately. Check "scripts" section of the composer.json file for the different options.
 
+GitHub Actions are used as CI environment. The `composer check` is performed and should pass in order to get a 'green' build.
+
 Release instructions
 =====================
 
