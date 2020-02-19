@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "StepupReadId\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "StepupReadId\\Tests\\": "tests/"
         }
     },
     "replace": {
