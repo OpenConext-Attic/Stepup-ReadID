@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd $(dirname $0)/../../
+mkdir -p var/qa
+
+# https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage
+./vendor/bin/phpcs --standard=support/qa/phpcs.xml $1

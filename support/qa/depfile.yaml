@@ -1,0 +1,25 @@
+# https://github.com/sensiolabs-de/deptrac
+paths:
+    - ../../src
+exclude_files:
+    - .*test.*
+layers:
+    -   name: Application
+        collectors:
+            -   type: className
+                regex: .*\\Application\\.*
+    -   name: Domain
+        collectors:
+            -   type: className
+                regex: .*\\Domain\\.*
+    -   name: Infrastructure
+        collectors:
+            -   type: className
+                regex: .*\\Infrastructure\\.*
+ruleset:
+    Infrastructure:
+        - Domain
+        - Application
+    Application:
+        - Domain
+    Domain: ~
