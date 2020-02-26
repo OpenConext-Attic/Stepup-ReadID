@@ -86,6 +86,9 @@
     "psr/log": {
         "version": "1.1.2"
     },
+    "robrichards/xmlseclibs": {
+        "version": "3.0.4"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -113,6 +116,9 @@
             "config/packages/security_checker.yaml"
         ]
     },
+    "simplesamlphp/saml2": {
+        "version": "v3.2.6"
+    },
     "slevomat/coding-standard": {
         "version": "6.1.5"
     },
@@ -127,6 +133,9 @@
         "files": [
             "phpcs.xml.dist"
         ]
+    },
+    "surfnet/stepup-saml-bundle": {
+        "version": "4.1.10"
     },
     "symfony/asset": {
         "version": "v5.0.4"
@@ -369,6 +378,9 @@
     },
     "symfony/stopwatch": {
         "version": "v5.0.4"
+    },
+    "symfony/templating": {
+        "version": "v4.4.4"
     },
     "symfony/test-pack": {
         "version": "v1.0.6"
