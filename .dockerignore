@@ -1,0 +1,14 @@
+*
+!config
+!docker
+!translations
+!src
+!tests
+!public
+!bin
+!support
+!var
+!vendor
+
+!composer.json
+!composer.lock

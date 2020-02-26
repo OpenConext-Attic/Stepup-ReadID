@@ -1,0 +1,25 @@
+version: '2.0'
+services:
+  readid.stepup.example.com:
+    image: nginx:latest
+    container_name: readid-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../../public:/var/www/public
+      - ./nginx/nginx-selfsigned.crt:/etc/nginx/certs/nginx-selfsigned.crt
+      - ./nginx/nginx-selfsigned.key:/etc/nginx/certs/nginx-selfsigned.key
+    ports:
+      - 127.43.33.34:443:443
+    depends_on:
+      - php-fpm.readid.stepup.example.com
+
+  php-fpm.readid.stepup.example.com:
+    build:
+      context: ../../
+      dockerfile: support/docker/php-fpm/Dockerfile
+    container_name: readid-phpfpm
+    volumes:
+      - ../../:/var/www
+    user: '${UID}:${GID}'
+    ports:
+      - 9000:9000

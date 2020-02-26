@@ -16,14 +16,18 @@ used.
 
 Requirements
 -------------------
-(TODO expand requirements)
-- Docker 
+An operating system of your choice which can run:
+- Docker (tested with v18.03.1)
+- Docker-compose (tested with v1.18.0)
+
+All development could be done in-container. If you opt to run this application on bare metal. Additional requirements are
+
+- PHP 7.2
 - Composer
 
 Install
 -------------------
 **Create a .env file**
-(TODO verify existing steps, rewrite where required)
 1. `$ cp .env.dist .env`
 1. Edit the `.env` file with the editor of your choice and: 
     1. Update the `APP_SECRET` to a value of your liking. See [Symfony docs](https://symfony.com/doc/current/reference/configuration/framework.html#secret) for more details about this secret. 
@@ -36,12 +40,40 @@ Install
 **Bring up Docker**
 
 ```
-
+$ ./support/docker/init.sh
 ```
 
 If everything goes as intended, you can develop in the virtual machine.
 
-[https://readid.stepup.example.com](https://readid.stepup.example.com)
+The machine should be available at: [127.43.33.34:443](https://127.43.33.34:443). Feel free to add a `hosts` file entry,
+I used: 
+
+[readid.stepup.example.com](https://readid.stepup.example.com)
+
+Tools
+------
+In order to make development in the container slightly easier two helper scripts where added to the project.
+
+You can use:
+
+`./support/docker/bash.sh` to open an interactive shell session (ctrl+d to exit out of this session).
+
+`./support/docker/composer.sh` to run composer tasks in box.
+
+Example usage:
+
+```
+ $ pwd
+ > /home/user/projects/Stepup-ReadId
+ $ ./support/docker/composer.sh require --dev ibuildings/qa-pack
+ > Composer output..
+ $ ./support/docker/bash.sh
+ user@8e5bfa7073a1:/var/www $ pwd
+ > /var/www
+ user@8e5bfa7073a1:/var/www $ ctrl+d
+ exit
+ $ ...
+```  
 
 Debugging
 -------------------
