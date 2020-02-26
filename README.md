@@ -1,9 +1,7 @@
 Stepup-ReadID
 ===================
 
-<a href="#">
-    <img src="https://travis-ci.org/OpenConext/Stepup-ReadID.svg?branch=develop" alt="build:">
-</a></br>
+![test-integration](https://github.com/OpenConext/Stepup-ReadID/workflows/test-integration/badge.svg)
 
 IdP for ReadId integration 
 
@@ -89,6 +87,8 @@ To run all required test you can run the following commands from the dev env:
 ```
 
 Every part can be run separately. Check "scripts" section of the composer.json file for the different options.
+
+GitHub Actions are used as CI environment. The `composer check` is performed and should pass in order to get a 'green' build.
 
 Release instructions
 =====================
