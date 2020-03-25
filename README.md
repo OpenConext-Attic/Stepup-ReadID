@@ -9,7 +9,7 @@ Development environment
 ======================
 
 The purpose of the development environment is mainly for running the different test and metric tools. But can also be
-used with the built in webserver to develop the application. Alternatively the Symfony / PHP built in webserver can be 
+used with the built in web server to develop the application. Alternatively the Symfony / PHP built in webserver can be 
 used.
 
 Requirements
