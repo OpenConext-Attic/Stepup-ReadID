@@ -8,7 +8,9 @@
                      http://pmd.sf.net/ruleset_xml_schema.xsd">
 
     <!-- https://phpmd.org/rules/cleancode.html -->
-    <rule ref="rulesets/cleancode.xml"/>
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess" />
+    </rule>
 
     <!-- https://phpmd.org/rules/unusedcode.html -->
     <rule ref="rulesets/unusedcode.xml"/>
@@ -25,5 +27,7 @@
     <!-- https://phpmd.org/rules/naming.html -->
     <rule ref="rulesets/naming.xml">
         <exclude name="LongVariable"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="ShortVariable"/>
     </rule>
 </ruleset>
