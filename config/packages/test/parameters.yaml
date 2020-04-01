@@ -1,0 +1,4 @@
+parameters:
+    app.authorization_token: 'authorization_token'
+    app.opaque_id: 'opaque_id'
+    app.readid_endpoint: 'https://readid_endpoint'
