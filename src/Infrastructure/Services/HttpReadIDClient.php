@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class HttpReadIDClient implements HttpReadIDClientInterface
 {
-    private const READY_SESSION_ENDPOINT_PATH = '/createReadySession';
+    private const CREATE_READY_SESSION_ENDPOINT_PATH = '/odata/v1/ODataServlet/createReadySession';
 
     /** @var HttpClientInterface */
     private $client;
@@ -26,10 +26,10 @@ final class HttpReadIDClient implements HttpReadIDClientInterface
     {
         return $this->client->request(
             'POST',
-            $this->readIDConfiguration->endpoint() . self::READY_SESSION_ENDPOINT_PATH,
+            $this->readIDConfiguration->endpoint() . self::CREATE_READY_SESSION_ENDPOINT_PATH,
             [
-                'header' => $this->getHeader(),
-                'body' => [
+                'headers' => $this->getHeaders(),
+                'json' => [
                     'opaqueID' => $this->readIDConfiguration->opaqueId(),
                     'TTL' => $ttl,
                 ],
@@ -40,7 +40,7 @@ final class HttpReadIDClient implements HttpReadIDClientInterface
     /**
      * @return array<string, string>
      */
-    private function getHeader(): array
+    private function getHeaders(): array
     {
         return [
             'X-Innovalor-Authorization' => $this->readIDConfiguration->authorizationToken(),
