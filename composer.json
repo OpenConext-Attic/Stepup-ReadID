@@ -26,6 +26,7 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "ext-json": "*",
         "ibuildings/qa-pack": "^1.8",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
