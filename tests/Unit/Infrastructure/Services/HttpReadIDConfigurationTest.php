@@ -21,7 +21,7 @@ class HttpReadIDConfigurationTest extends TestCase
 
         $configuration = new HttpReadIDConfiguration($params);
         $value         = $configuration->authorizationToken();
-        self::assertSame('authorization_token', $value);
+        $this->assertSame('authorization_token', $value);
     }
 
     public function testEndpoint(): void
@@ -35,7 +35,7 @@ class HttpReadIDConfigurationTest extends TestCase
 
         $configuration = new HttpReadIDConfiguration($params);
         $value         = $configuration->endpoint();
-        self::assertSame('http://site.com', $value);
+        $this->assertSame('http://site.com', $value);
     }
 
     public function testCleanEndpoint(): void
@@ -49,6 +49,6 @@ class HttpReadIDConfigurationTest extends TestCase
 
         $configuration = new HttpReadIDConfiguration($params);
         $value         = $configuration->endpoint();
-        self::assertSame('http://site.com', $value);
+        $this->assertSame('http://site.com', $value);
     }
 }
