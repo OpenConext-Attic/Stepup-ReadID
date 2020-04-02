@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace StepupReadId\Domain\ReadySession\Model;
 
+use StepupReadId\Domain\ReadySession\Exception\InvalidReadySessionBase64ImageException;
+use function preg_match;
+
 final class ReadySessionBase64Image
 {
     /** @var string  */
@@ -11,6 +14,8 @@ final class ReadySessionBase64Image
 
     public function __construct(string $base64Image)
     {
+        $this->checkValidBase64Image($base64Image);
+
         $this->value = $base64Image;
     }
 
@@ -27,5 +32,12 @@ final class ReadySessionBase64Image
     public function equals(ReadySessionBase64Image $other): bool
     {
         return $this->value === $other->value;
+    }
+
+    private function checkValidBase64Image(string $base64Image): void
+    {
+        if (!preg_match('/^data:image\/[^;]+;base64,/', $base64Image)) {
+            throw InvalidReadySessionBase64ImageException::becauseNoValidHeader();
+        }
     }
 }
