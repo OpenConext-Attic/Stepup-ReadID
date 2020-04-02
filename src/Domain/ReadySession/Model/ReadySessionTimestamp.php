@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace StepupReadId\Domain\ReadySession\Model;
 
-use Webmozart\Assert\Assert;
+use StepupReadId\Domain\ReadySession\Exception\InvalidReadySessionTimestampException;
 
 final class ReadySessionTimestamp
 {
@@ -13,7 +13,7 @@ final class ReadySessionTimestamp
 
     private function __construct(int $timestamp)
     {
-        Assert::greaterThan($timestamp, 0);
+        $this->checkValidTimestamp($timestamp);
 
         $this->value = $timestamp;
     }
@@ -31,5 +31,12 @@ final class ReadySessionTimestamp
     public function equals(ReadySessionTimestamp $other): bool
     {
         return $this->value === $other->value;
+    }
+
+    private function checkValidTimestamp(int $timestamp): void
+    {
+        if ($timestamp <= 0) {
+            throw InvalidReadySessionTimestampException::becauseShouldBeGreaterThanZero();
+        }
     }
 }
