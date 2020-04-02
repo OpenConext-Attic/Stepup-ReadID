@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace StepupReadId\Infrastructure\Services;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
-use function rtrim;
+use function sprintf;
 
 final class HttpReadIDConfiguration
 {
@@ -13,7 +13,7 @@ final class HttpReadIDConfiguration
 
     private const OPAQUE_ID = 'app.opaque_id';
 
-    private const READID_ENDPOINT = 'app.readid_endpoint';
+    private const READID_SERVER_FQDN = 'app.readid_server_fqdn';
 
     /** @var ContainerBagInterface */
     private $params;
@@ -35,6 +35,6 @@ final class HttpReadIDConfiguration
 
     public function endpoint(): string
     {
-        return rtrim($this->params->get(self::READID_ENDPOINT), '/');
+        return sprintf('https://%s', $this->params->get(self::READID_SERVER_FQDN));
     }
 }

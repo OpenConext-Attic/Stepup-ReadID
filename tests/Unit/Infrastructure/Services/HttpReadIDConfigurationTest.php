@@ -30,25 +30,11 @@ class HttpReadIDConfigurationTest extends TestCase
         $params
             ->expects($this->exactly(1))
             ->method('get')
-            ->with('app.readid_endpoint')
-            ->willReturn('http://site.com');
+            ->with('app.readid_server_fqdn')
+            ->willReturn('site.com');
 
         $configuration = new HttpReadIDConfiguration($params);
         $value         = $configuration->endpoint();
-        $this->assertSame('http://site.com', $value);
-    }
-
-    public function testCleanEndpoint(): void
-    {
-        $params = $this->getMockBuilder(ContainerBagInterface::class)->getMock();
-        $params
-            ->expects($this->exactly(1))
-            ->method('get')
-            ->with('app.readid_endpoint')
-            ->willReturn('http://site.com/');
-
-        $configuration = new HttpReadIDConfiguration($params);
-        $value         = $configuration->endpoint();
-        $this->assertSame('http://site.com', $value);
+        $this->assertSame('https://site.com', $value);
     }
 }

@@ -1,4 +1,4 @@
 parameters:
     app.authorization_token:
     app.opaque_id:
-    app.readid_endpoint:
+    app.readid_server_fqdn:
