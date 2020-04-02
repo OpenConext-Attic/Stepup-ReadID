@@ -6,6 +6,7 @@ namespace StepupReadId\Infrastructure\Services;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use function sprintf;
 
 final class HttpReadIDClient implements HttpReadIDClientInterface
 {
@@ -26,7 +27,7 @@ final class HttpReadIDClient implements HttpReadIDClientInterface
     {
         return $this->client->request(
             'POST',
-            $this->readIDConfiguration->endpoint() . self::CREATE_READY_SESSION_ENDPOINT_PATH,
+            $this->getEndpoint(self::CREATE_READY_SESSION_ENDPOINT_PATH),
             [
                 'headers' => $this->getHeaders(),
                 'json' => [
@@ -35,6 +36,11 @@ final class HttpReadIDClient implements HttpReadIDClientInterface
                 ],
             ]
         );
+    }
+
+    private function getEndpoint(string $path): string
+    {
+        return sprintf('https://%s/%s', $this->readIDConfiguration->readIdServerFqdn(), $path);
     }
 
     /**

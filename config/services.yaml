@@ -39,3 +39,9 @@ services:
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: query.bus }
+
+    StepupReadId\Infrastructure\Services\HttpReadIDConfiguration:
+        arguments:
+            - '%app.authorization_token%'
+            - '%app.opaque_id%'
+            - '%app.readid_server_fqdn%'

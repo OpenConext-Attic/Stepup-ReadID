@@ -4,37 +4,34 @@ declare(strict_types=1);
 
 namespace StepupReadId\Infrastructure\Services;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
-use function sprintf;
-
 final class HttpReadIDConfiguration
 {
-    private const AUTHORIZATION_TOKEN = 'app.authorization_token';
+    /** @var string */
+    private $authorizationToken;
+    /** @var string */
+    private $opaqueId;
+    /** @var string */
+    private $readIdServerFqdn;
 
-    private const OPAQUE_ID = 'app.opaque_id';
-
-    private const READID_SERVER_FQDN = 'app.readid_server_fqdn';
-
-    /** @var ContainerBagInterface */
-    private $params;
-
-    public function __construct(ContainerBagInterface $params)
+    public function __construct(string $authorizationToken, string $opaqueId, string $readIdServerFqdn)
     {
-        $this->params = $params;
+        $this->authorizationToken = $authorizationToken;
+        $this->opaqueId           = $opaqueId;
+        $this->readIdServerFqdn   = $readIdServerFqdn;
     }
 
     public function authorizationToken(): string
     {
-        return $this->params->get(self::AUTHORIZATION_TOKEN);
+        return $this->authorizationToken;
     }
 
     public function opaqueId(): string
     {
-        return $this->params->get(self::OPAQUE_ID);
+        return $this->opaqueId;
     }
 
-    public function endpoint(): string
+    public function readIdServerFqdn(): string
     {
-        return sprintf('https://%s', $this->params->get(self::READID_SERVER_FQDN));
+        return $this->readIdServerFqdn;
     }
 }
