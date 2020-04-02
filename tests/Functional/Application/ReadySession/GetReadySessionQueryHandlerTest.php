@@ -6,6 +6,8 @@ namespace StepupReadId\Tests\Functional\Application\ReadySession;
 
 use StepupReadId\Application\ReadySession\GetReadySessionQuery;
 use StepupReadId\Application\ReadySession\GetReadySessionQueryHandler;
+use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException;
+use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException;
 use StepupReadId\Domain\ReadySession\Model\ReadySession;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionTTL;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -41,19 +43,17 @@ class GetReadySessionQueryHandlerTest extends KernelTestCase
         $this->assertEquals($response->timestamp()->value(), 1234567890);
     }
 
-    /**
-     * @expectedException \StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException
-     */
     public function testUnauthorizedRequest(): void
     {
+        $this->expectException(RequestReadySessionAuthorizationException::class);
+
         (static::$getReadySessionQueryHandler)(new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL));
     }
 
-    /**
-     * @expectedException \StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException
-     */
     public function testBadRequest(): void
     {
+        $this->expectException(RequestReadySessionBadRequestException::class);
+
         (static::$getReadySessionQueryHandler)(new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL));
     }
 

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace StepupReadId\Tests\Unit\Infrastructure\Services;
 
 use PHPUnit\Framework\TestCase;
+use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException;
+use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException;
 use StepupReadId\Domain\ReadySession\Model\ReadySession;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionBase64Image;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionId;
@@ -68,11 +70,10 @@ class HttpRequestReadySessionTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException
-     */
     public function testUnauthorizedRequest(): void
     {
+        $this->expectException(RequestReadySessionAuthorizationException::class);
+
         $this->response
             ->expects($this->exactly(1))
             ->method('getStatusCode')
@@ -84,11 +85,10 @@ class HttpRequestReadySessionTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException
-     */
     public function testBadRequest(): void
     {
+        $this->expectException(RequestReadySessionBadRequestException::class);
+
         $this->response
             ->expects($this->exactly(2))
             ->method('getStatusCode')
