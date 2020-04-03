@@ -34,7 +34,8 @@ class GetReadySessionQueryHandlerTest extends KernelTestCase
 
     public function testRequestReadySession(): void
     {
-        $response = (static::$getReadySessionQueryHandler)(new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL));
+        $getReadySessionQuery = new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL);
+        $response             = static::$getReadySessionQueryHandler->__invoke($getReadySessionQuery);
 
         $this->assertInstanceOf(ReadySession::class, $response);
         $this->assertEquals($response->id()->value(), 'a0577ea3-1b40-433a-ad18-726c2a5378ad');
@@ -47,14 +48,16 @@ class GetReadySessionQueryHandlerTest extends KernelTestCase
     {
         $this->expectException(RequestReadySessionAuthorizationException::class);
 
-        (static::$getReadySessionQueryHandler)(new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL));
+        $getReadySessionQuery = new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL);
+        static::$getReadySessionQueryHandler->__invoke($getReadySessionQuery);
     }
 
     public function testBadRequest(): void
     {
         $this->expectException(RequestReadySessionBadRequestException::class);
 
-        (static::$getReadySessionQueryHandler)(new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL));
+        $getReadySessionQuery = new GetReadySessionQuery(ReadySessionTTL::MINIMUM_TTL);
+        static::$getReadySessionQueryHandler->__invoke($getReadySessionQuery);
     }
 
     /**
