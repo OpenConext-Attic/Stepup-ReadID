@@ -61,7 +61,7 @@ final class HttpReadIDConfiguration
     private function checkValidHostName(string $readIdServerFqdn): void
     {
         if (!filter_var($readIdServerFqdn, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
-            throw new InvalidArgumentException("Invalid hostname: '$readIdServerFqdn'");
+            throw new InvalidArgumentException('Invalid hostname: \'$readIdServerFqdn\'');
         }
     }
 }
