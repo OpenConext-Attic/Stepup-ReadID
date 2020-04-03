@@ -42,6 +42,6 @@ services:
 
     StepupReadId\Infrastructure\Services\HttpReadIDConfiguration:
         arguments:
-            - '%app.authorization_token%'
-            - '%app.opaque_id%'
-            - '%app.readid_server_fqdn%'
+            - '%env(resolve:APP_AUTHORIZATION_TOKEN)%'
+            - '%env(resolve:APP_OPAQUE_ID)%'
+            - '%env(resolve:APP_READID_SERVER_FQDN)%'

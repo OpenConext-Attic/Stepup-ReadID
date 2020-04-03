@@ -1,4 +1,0 @@
-parameters:
-    app.authorization_token: 'authorization_token'
-    app.opaque_id: 'opaque_id'
-    app.readid_server_fqdn: 'readid.server.com'
