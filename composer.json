@@ -6,6 +6,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ramsey/uuid": "^4.0",
         "sensio/framework-extra-bundle": "^5.1",
         "surfnet/stepup-saml-bundle": "^4.1",
         "symfony/asset": "4.4.*",
@@ -16,6 +17,7 @@
         "symfony/framework-bundle": "4.4.*",
         "symfony/http-client": "4.4.*",
         "symfony/intl": "4.4.*",
+        "symfony/messenger": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/security-bundle": "4.4.*",
         "symfony/serializer-pack": "*",
@@ -24,6 +26,7 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "ext-json": "*",
         "ibuildings/qa-pack": "^1.8",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
