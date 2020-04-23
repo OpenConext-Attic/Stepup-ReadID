@@ -10,4 +10,5 @@ services:
 
     test.StepupReadId\Application\ReadySession\GetReadySessionQueryHandler: '@StepupReadId\Application\ReadySession\GetReadySessionQueryHandler'
     test.StepupReadId\Application\Session\RegisterSessionCommandHandler: '@StepupReadId\Application\Session\RegisterSessionCommandHandler'
+    test.StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandler: '@StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandler'
     test.Symfony\Contracts\HttpClient\HttpClientInterface: '@Symfony\Contracts\HttpClient\HttpClientInterface'
