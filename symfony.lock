@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v3.2.7"
+    },
     "brick/math": {
         "version": "0.8.14"
     },
@@ -29,23 +32,14 @@
     "doctrine/lexer": {
         "version": "1.2.0"
     },
-    "easycorp/easy-log-handler": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
-        },
-        "files": [
-            "config/packages/dev/easy_log_handler.yaml"
-        ]
-    },
     "ibuildings/qa-pack": {
         "version": "v1.8"
     },
     "monolog/monolog": {
         "version": "2.0.2"
+    },
+    "n98/junit-xml": {
+        "version": "1.0.0"
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
@@ -142,6 +136,9 @@
         "files": [
             "phpcs.xml.dist"
         ]
+    },
+    "surfnet/stepup-gssp-bundle": {
+        "version": "3.0.6"
     },
     "surfnet/stepup-saml-bundle": {
         "version": "4.1.10"
@@ -460,6 +457,25 @@
             "config/packages/dev/web_profiler.yaml",
             "config/packages/test/web_profiler.yaml",
             "config/routes/dev/web_profiler.yaml"
+        ]
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.6",
+            "ref": "69e1d805ad95964088bd510c05995e87dc391564"
+        },
+        "files": [
+            "assets/css/app.css",
+            "assets/js/app.js",
+            "config/packages/assets.yaml",
+            "config/packages/prod/webpack_encore.yaml",
+            "config/packages/test/webpack_encore.yaml",
+            "config/packages/webpack_encore.yaml",
+            "package.json",
+            "webpack.config.js"
         ]
     },
     "symfony/yaml": {

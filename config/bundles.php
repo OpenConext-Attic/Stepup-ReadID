@@ -12,4 +12,5 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Surfnet\SamlBundle\SurfnetSamlBundle::class => ['all' => true],
     Surfnet\GsspBundle\SurfnetGsspBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
