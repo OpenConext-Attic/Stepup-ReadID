@@ -29,6 +29,6 @@ final class ReadySessionId
 
     public function equals(ReadySessionId $other): bool
     {
-        return $this->value->equals($other);
+        return $this->value->equals($other->value);
     }
 }

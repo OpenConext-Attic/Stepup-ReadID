@@ -8,7 +8,7 @@ parameters:
     ignoreErrors:
         -
             message: '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]+\(\) has parameter \$context#'
-            path: '**/Infrastructure/Serializer/SessionNormalizer.php'
+            path: '**/Infrastructure/Serializer/*Normalizer.php'
         -
             message: '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9]+\(\) return type has no value type specified in iterable type array#'
-            path: '**/Infrastructure/Serializer/SessionNormalizer.php'
+            path: '**/Infrastructure/Serializer/*Normalizer.php'
