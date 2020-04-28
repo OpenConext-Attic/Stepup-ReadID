@@ -10,7 +10,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
     .addStyleEntry('global', './assets/css/global.scss')
-    .addEntry('authentication', './assets/js/authentication/authentication.tsx')
+    .addEntry('authentication', './assets/typescript/authentication/authentication.tsx')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
