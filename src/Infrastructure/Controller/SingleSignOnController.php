@@ -38,7 +38,6 @@ use function sprintf;
 
 /**
  * @Route("/saml/sso", name="readid_saml_sso", methods={"GET"})
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 final class SingleSignOnController extends AbstractController
 {
