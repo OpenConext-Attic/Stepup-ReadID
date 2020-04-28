@@ -5,4 +5,6 @@ parameters:
     level: 7
     paths:
         - ../../src
+    # Level 6 checks for unspecific typehints but some Symfony interfaces
+    # has generic iterable types.
     checkMissingIterableValueType: false
