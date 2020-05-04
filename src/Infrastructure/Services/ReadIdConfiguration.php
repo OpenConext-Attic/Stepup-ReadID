@@ -9,7 +9,7 @@ use function filter_var;
 use const FILTER_FLAG_HOSTNAME;
 use const FILTER_VALIDATE_DOMAIN;
 
-final class HttpReadIDConfiguration
+final class ReadIdConfiguration
 {
     /** @var string */
     private $authorizationToken;

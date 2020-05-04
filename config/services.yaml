@@ -44,7 +44,7 @@ services:
         tags:
             - { name: messenger.message_handler, bus: query.bus }
 
-    StepupReadId\Infrastructure\Services\HttpReadIDConfiguration:
+    StepupReadId\Infrastructure\Services\ReadIdConfiguration:
         arguments:
             - '%env(resolve:APP_AUTHORIZATION_TOKEN)%'
             - '%env(resolve:APP_OPAQUE_ID)%'
