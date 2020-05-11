@@ -13,21 +13,21 @@ use StepupReadId\Domain\ReadySession\Model\ReadySessionId;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionJwtToken;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionTimestamp;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionTTL;
-use StepupReadId\Infrastructure\Services\HttpReadIDClientInterface;
-use StepupReadId\Infrastructure\Services\HttpRequestReadySession;
+use StepupReadId\Infrastructure\Services\ReadySession\HttpRequestReadySession;
+use StepupReadId\Infrastructure\Services\ReadySession\ReadySessionClientInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class HttpRequestReadySessionTest extends TestCase
 {
-    /** @var HttpReadIDClientInterface */
+    /** @var ReadySessionClientInterface */
     private $httpClient;
     /** @var ResponseInterface */
     private $response;
 
     protected function setUp(): void
     {
-        $this->httpClient = $this->getMockBuilder(HttpReadIDClientInterface::class)->getMock();
+        $this->httpClient = $this->getMockBuilder(ReadySessionClientInterface::class)->getMock();
         $this->response   = $this->getMockBuilder(ResponseInterface::class)->getMock();
 
         $this->httpClient

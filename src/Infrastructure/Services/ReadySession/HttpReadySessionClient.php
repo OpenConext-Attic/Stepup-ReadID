@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace StepupReadId\Infrastructure\Services;
+namespace StepupReadId\Infrastructure\Services\ReadySession;
 
+use StepupReadId\Infrastructure\Services\ReadIdConfiguration;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use function sprintf;
 
-final class HttpReadIDClient implements HttpReadIDClientInterface
+final class HttpReadySessionClient implements ReadySessionClientInterface
 {
     private const CREATE_READY_SESSION_ENDPOINT_PATH = '/odata/v1/ODataServlet/createReadySession';
 
     /** @var HttpClientInterface */
     private $client;
-    /** @var HttpReadIDConfiguration */
+    /** @var ReadIdConfiguration */
     private $readIDConfiguration;
 
-    public function __construct(HttpClientInterface $client, HttpReadIDConfiguration $readIDConfiguration)
+    public function __construct(HttpClientInterface $client, ReadIdConfiguration $readIDConfiguration)
     {
         $this->client              = $client;
         $this->readIDConfiguration = $readIDConfiguration;

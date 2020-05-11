@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace StepupReadId\Infrastructure\Services;
+namespace StepupReadId\Infrastructure\Services\ReadySession;
 
 use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException;
 use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException;
@@ -27,10 +27,10 @@ final class HttpRequestReadySession implements RequestReadySessionInterface
     public const JWK_TOKEN        = 'jwtToken';
     public const EXPIRY_TIMESTAMP = 'expiryTimestamp';
 
-    /** @var HttpReadIDClientInterface */
+    /** @var ReadySessionClientInterface */
     private $httpReadIDClient;
 
-    public function __construct(HttpReadIDClientInterface $httpReadIDClient)
+    public function __construct(ReadySessionClientInterface $httpReadIDClient)
     {
         $this->httpReadIDClient = $httpReadIDClient;
     }

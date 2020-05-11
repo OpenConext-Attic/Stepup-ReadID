@@ -10,6 +10,10 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            Surfnet\GsspBundle\Saml\ResponseContextInterface $responseContext: '@surfnet_gssp.saml.reponse_context'
+            Surfnet\GsspBundle\Service\StateHandlerInterface $stateHandler: '@surfnet_gssp.state_handler.service'
+            Surfnet\GsspBundle\Service\ValueStore $store: '@surfnet_gssp.value_store.service'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -40,7 +44,7 @@ services:
         tags:
             - { name: messenger.message_handler, bus: query.bus }
 
-    StepupReadId\Infrastructure\Services\HttpReadIDConfiguration:
+    StepupReadId\Infrastructure\Services\ReadIdConfiguration:
         arguments:
             - '%env(resolve:APP_AUTHORIZATION_TOKEN)%'
             - '%env(resolve:APP_OPAQUE_ID)%'
