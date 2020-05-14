@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace StepupReadId\Infrastructure\Services\ReadySession;
 
+use StepupReadId\Domain\ReadySession\Exception\ReadySessionNotFoundException;
 use StepupReadId\Domain\ReadySession\Model\ReadySession;
+use StepupReadId\Domain\ReadySession\Services\ReadySessionStateInterface;
 use Surfnet\GsspBundle\Service\ValueStore;
 use Symfony\Component\Serializer\SerializerInterface;
 
-final class ReadySessionStateHandler implements ReadySessionStateHandlerInterface
+final class StoreReadySessionState implements ReadySessionStateInterface
 {
     /** @var ValueStore */
     private $store;
@@ -21,14 +23,19 @@ final class ReadySessionStateHandler implements ReadySessionStateHandlerInterfac
         $this->serializer = $serializer;
     }
 
-    public function saveReadySession(ReadySession $readySession): void
+    public function save(ReadySession $readySession): void
     {
         $data = $this->serializer->serialize($readySession, 'json');
+
         $this->store->set('readySession', $data);
     }
 
-    public function getReadySession(): ReadySession
+    public function load(): ReadySession
     {
+        if (! $this->store->has('readySession')) {
+            throw ReadySessionNotFoundException::stateIsEmpty();
+        }
+
         $data = $this->store->get('readySession');
 
         return $this->serializer->deserialize($data, ReadySession::class, 'json');
