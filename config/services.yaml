@@ -4,6 +4,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    surfnet_readid.connection.host: '%env(string:APP_READID_SERVER_FQDN)%'
+    surfnet_readid.connection.submitter_token: '%env(string:APP_SUBMITTER_TOKEN)%'
+    surfnet_readid.connection.viewer_token: '%env(string:APP_VIEWER_TOKEN)%'
+    surfnet_readid.webhook_token: '%env(string:APP_WEBHOOK_TOKEN)%'
+    surfnet_readid.opaque_id: '%env(string:APP_OPAQUE_ID)%'
+    surfnet_readid.attributes_mapping: '%env(json:APP_ATTRIBUTES_MAPPING)%'
 
 services:
     # default configuration for services in *this* file
@@ -12,8 +18,12 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             Surfnet\GsspBundle\Saml\ResponseContextInterface $responseContext: '@surfnet_gssp.saml.reponse_context'
+            Surfnet\GsspBundle\Service\ResponseServiceInterface $responseService: '@surfnet_gssp.service.response'
             Surfnet\GsspBundle\Service\StateHandlerInterface $stateHandler: '@surfnet_gssp.state_handler.service'
             Surfnet\GsspBundle\Service\ValueStore $store: '@surfnet_gssp.value_store.service'
+            string $readIdWebhookToken: '%surfnet_readid.webhook_token%'
+            string $readIdOpaqueId: '%surfnet_readid.opaque_id%'
+            array $readIdAttributeMappings: '%surfnet_readid.attributes_mapping%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -32,20 +42,7 @@ services:
 
     command_handlers:
         namespace: StepupReadId\Application\
-        resource: '%kernel.project_dir%/src/Application/**/*CommandHandler.php'
+        resource: '%kernel.project_dir%/src/Application/**/*Handler.php'
         autoconfigure: false
         tags:
-            - { name: messenger.message_handler, bus: command.bus }
-
-    query_handlers:
-        namespace: StepupReadId\Application\
-        resource: '%kernel.project_dir%/src/Application/**/*QueryHandler.php'
-        autoconfigure: false
-        tags:
-            - { name: messenger.message_handler, bus: query.bus }
-
-    StepupReadId\Infrastructure\Services\ReadIdConfiguration:
-        arguments:
-            - '%env(resolve:APP_AUTHORIZATION_TOKEN)%'
-            - '%env(resolve:APP_OPAQUE_ID)%'
-            - '%env(resolve:APP_READID_SERVER_FQDN)%'
+            - { name: messenger.message_handler, bus: messenger.bus.default }
