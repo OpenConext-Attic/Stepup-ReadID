@@ -34,7 +34,7 @@ final class CachePendingSessionRepository implements PendingSessionRepositoryInt
         $this->cacheItemPool->save($item);
     }
 
-    public function findOneByReadySession(ReadySessionId $readySessionId): ?PendingSession
+    public function findOneByReadySession(ReadySessionId $readySessionId): PendingSession
     {
         $item = $this->cacheItemPool->getItem('ready_session_id_' . $readySessionId->value());
 

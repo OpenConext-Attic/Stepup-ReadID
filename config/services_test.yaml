@@ -8,11 +8,15 @@ services:
     #
     # test.App\Service\MyService: '@App\Service\MyService'
 
+    test.StepupReadId\Application\PendingSession\ConfirmPendingSessionCommandHandler: '@StepupReadId\Application\PendingSession\ConfirmPendingSessionCommandHandler'
     test.StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler: '@StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler'
     test.StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler: '@StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler'
     test.StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler: '@StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler'
+    test.StepupReadId\Domain\PendingSession\Services\PendingSessionRepositoryInterface: '@StepupReadId\Domain\PendingSession\Services\PendingSessionRepositoryInterface'
     test.StepupReadId\Domain\ReadySession\Services\ReadySessionStateInterface: '@StepupReadId\Domain\ReadySession\Services\ReadySessionStateInterface'
     test.http.read_id.submitter.client: '@stepup.http.read_id.submitter.client'
     test.http.read_id.viewer.client: '@stepup.http.read_id.viewer.client'
     test.Symfony\Component\Messenger\MessageBusInterface: '@Symfony\Component\Messenger\MessageBusInterface'
     test.Symfony\Contracts\HttpClient\HttpClientInterface: '@Symfony\Contracts\HttpClient\HttpClientInterface'
+
+

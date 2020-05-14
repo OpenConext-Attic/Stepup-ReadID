@@ -15,5 +15,5 @@ interface PendingSessionRepositoryInterface
     /**
      * @throws PendingSessionNotFoundException
      */
-    public function findOneByReadySession(ReadySessionId $readySessionId): ?PendingSession;
+    public function findOneByReadySession(ReadySessionId $readySessionId): PendingSession;
 }
