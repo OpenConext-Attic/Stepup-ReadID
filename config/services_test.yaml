@@ -10,6 +10,7 @@ services:
 
     test.StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler: '@StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler'
     test.StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler: '@StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler'
+    test.StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler: '@StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler'
     test.StepupReadId\Domain\ReadySession\Services\ReadySessionStateInterface: '@StepupReadId\Domain\ReadySession\Services\ReadySessionStateInterface'
     test.http.read_id.submitter.client: '@stepup.http.read_id.submitter.client'
     test.http.read_id.viewer.client: '@stepup.http.read_id.viewer.client'

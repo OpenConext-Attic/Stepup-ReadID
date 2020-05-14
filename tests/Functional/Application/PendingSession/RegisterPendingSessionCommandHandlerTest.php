@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace StepupReadId\Tests\Functional\Application\Session;
+namespace StepupReadId\Tests\Functional\Application\PendingSession;
 
 use DateTimeImmutable;
 use Psr\Cache\CacheItemPoolInterface;
-use StepupReadId\Application\Session\RegisterSessionCommand;
-use StepupReadId\Application\Session\RegisterSessionCommandHandler;
+use StepupReadId\Application\PendingSession\RegisterPendingSessionCommand;
+use StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use function sprintf;
-use const DATE_RFC3339;
 
-class RegisterSessionCommandHandlerTest extends KernelTestCase
+class RegisterPendingSessionCommandHandlerTest extends KernelTestCase
 {
     public const SESSION_ID       = 'cb82582e-da8c-476b-9fd5-dd2b63a20013';
     public const READY_SESSION_ID = '8297453c-b936-4396-a5ab-1436a5499f10';
 
-    /** @var RegisterSessionCommandHandler */
+    /** @var RegisterPendingSessionCommandHandler */
     private static $registerSessionCommandHandler;
     /** @var CacheItemPoolInterface */
     private static $cacheItemPool;
@@ -28,17 +27,16 @@ class RegisterSessionCommandHandlerTest extends KernelTestCase
 
         $container = self::$kernel->getContainer();
 
-        static::$registerSessionCommandHandler = $container->get('test.' . RegisterSessionCommandHandler::class);
+        static::$registerSessionCommandHandler = $container->get('test.' . RegisterPendingSessionCommandHandler::class);
         static::$cacheItemPool                 = $container->get('cache.app');
     }
 
     public function testRegisterSession(): void
     {
         $expiryDate             = new DateTimeImmutable('+3 hours');
-        $registerSessionCommand = new RegisterSessionCommand(
-            self::SESSION_ID,
-            $expiryDate->format(DATE_RFC3339),
-            self::READY_SESSION_ID
+        $registerSessionCommand = new RegisterPendingSessionCommand(
+            self::READY_SESSION_ID,
+            $expiryDate->getTimestamp()
         );
 
         static::$registerSessionCommandHandler->__invoke($registerSessionCommand);
@@ -54,10 +52,9 @@ class RegisterSessionCommandHandlerTest extends KernelTestCase
     public function testRegisterExpiredSession(): void
     {
         $expiryDate             = new DateTimeImmutable('-3 hours');
-        $registerSessionCommand = new RegisterSessionCommand(
-            self::SESSION_ID,
-            $expiryDate->format(DATE_RFC3339),
-            self::READY_SESSION_ID
+        $registerSessionCommand = new RegisterPendingSessionCommand(
+            self::READY_SESSION_ID,
+            $expiryDate->getTimestamp()
         );
 
         static::$registerSessionCommandHandler->__invoke($registerSessionCommand);
@@ -70,10 +67,9 @@ class RegisterSessionCommandHandlerTest extends KernelTestCase
     private function getFormattedJsonResponse(DateTimeImmutable $expiryDate): string
     {
         return sprintf(
-            '{"id":"%s","expiryDate":%d,"readySessionId":"%s"}',
-            self::SESSION_ID,
-            $expiryDate->getTimestamp(),
-            self::READY_SESSION_ID
+            '{"readySessionId":"%s","expiryDate":%d,"sessionId":null}',
+            self::READY_SESSION_ID,
+            $expiryDate->getTimestamp()
         );
     }
 }
