@@ -11,4 +11,6 @@ services:
     test.StepupReadId\Application\ReadySession\GetReadySessionQueryHandler: '@StepupReadId\Application\ReadySession\GetReadySessionQueryHandler'
     test.StepupReadId\Application\Session\RegisterSessionCommandHandler: '@StepupReadId\Application\Session\RegisterSessionCommandHandler'
     test.StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandler: '@StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandler'
+    test.http.read_id.submitter.client: '@stepup.http.read_id.submitter.client'
+    test.http.read_id.viewer.client: '@stepup.http.read_id.viewer.client'
     test.Symfony\Contracts\HttpClient\HttpClientInterface: '@Symfony\Contracts\HttpClient\HttpClientInterface'

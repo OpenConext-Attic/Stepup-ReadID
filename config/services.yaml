@@ -46,3 +46,19 @@ services:
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: messenger.bus.default }
+
+    stepup.http.read_id.submitter.client:
+        class: StepupReadId\Infrastructure\Services\ReadId\HttpReadIdClient
+        autowire: false
+        arguments:
+            - '@http_client'
+            - '%surfnet_readid.connection.host%'
+            - '%surfnet_readid.connection.submitter_token%'
+
+    stepup.http.read_id.viewer.client:
+        class: StepupReadId\Infrastructure\Services\ReadId\HttpReadIdClient
+        autowire: false
+        arguments:
+            - '@http_client'
+            - '%surfnet_readid.connection.host%'
+            - '%surfnet_readid.connection.viewer_token%'
