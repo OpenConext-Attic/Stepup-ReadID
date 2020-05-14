@@ -62,3 +62,8 @@ services:
             - '@http_client'
             - '%surfnet_readid.connection.host%'
             - '%surfnet_readid.connection.viewer_token%'
+
+    StepupReadId\Infrastructure\Services\ReadySession\HttpRequestReadySession:
+        arguments:
+            - '@stepup.http.read_id.submitter.client'
+            - '@serializer'

@@ -41,10 +41,10 @@ class ReadySessionNormalizerTest extends TestCase
 
         $normalizedReadySession = $this->normalizer->normalize($readySession);
         $this->assertEquals([
-            'id' => self::READY_SESSION_ID,
-            'qrCode' => self::READY_SESSION_BASE64IMAGE,
-            'jwtToken' => self::READY_SESSION_JWT_TOKEN,
-            'timestamp' => self::READY_SESSION_TIMESTAMP,
+            ReadySessionNormalizer::READY_SESSION_ID => self::READY_SESSION_ID,
+            ReadySessionNormalizer::BASE_64_QR => self::READY_SESSION_BASE64IMAGE,
+            ReadySessionNormalizer::JWK_TOKEN => self::READY_SESSION_JWT_TOKEN,
+            ReadySessionNormalizer::EXPIRY_TIMESTAMP => self::READY_SESSION_TIMESTAMP,
         ], $normalizedReadySession);
     }
 
@@ -63,10 +63,10 @@ class ReadySessionNormalizerTest extends TestCase
     public function testReadySessionDenormalization(): void
     {
         $data = [
-            'id' => self::READY_SESSION_ID,
-            'qrCode' => self::READY_SESSION_BASE64IMAGE,
-            'jwtToken' => self::READY_SESSION_JWT_TOKEN,
-            'timestamp' => self::READY_SESSION_TIMESTAMP,
+            ReadySessionNormalizer::READY_SESSION_ID => self::READY_SESSION_ID,
+            ReadySessionNormalizer::BASE_64_QR => self::READY_SESSION_BASE64IMAGE,
+            ReadySessionNormalizer::JWK_TOKEN => self::READY_SESSION_JWT_TOKEN,
+            ReadySessionNormalizer::EXPIRY_TIMESTAMP => self::READY_SESSION_TIMESTAMP,
         ];
         $this->assertTrue($this->normalizer->supportsDenormalization($data, ReadySession::class));
 

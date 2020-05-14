@@ -18,6 +18,11 @@ use function is_array;
 
 final class ReadySessionNormalizer implements NormalizerInterface, DenormalizerInterface
 {
+    public const READY_SESSION_ID = 'readySessionID';
+    public const BASE_64_QR       = 'base64QR';
+    public const JWK_TOKEN        = 'jwtToken';
+    public const EXPIRY_TIMESTAMP = 'expiryTimestamp';
+
     /**
      * @inheritDoc
      */
@@ -28,10 +33,10 @@ final class ReadySessionNormalizer implements NormalizerInterface, DenormalizerI
         }
 
         return [
-            'id' => $object->id()->value(),
-            'qrCode' => $object->qrCode()->value(),
-            'jwtToken' => $object->jwtToken()->value(),
-            'timestamp' => $object->timestamp()->value(),
+            self::READY_SESSION_ID => $object->id()->value(),
+            self::BASE_64_QR => $object->qrCode()->value(),
+            self::JWK_TOKEN => $object->jwtToken()->value(),
+            self::EXPIRY_TIMESTAMP => $object->timestamp()->value(),
         ];
     }
 
@@ -58,10 +63,10 @@ final class ReadySessionNormalizer implements NormalizerInterface, DenormalizerI
 
         try {
             return ReadySession::create(
-                ReadySessionId::fromString($data['id']),
-                ReadySessionBase64Image::fromString($data['qrCode']),
-                ReadySessionJwtToken::fromString($data['jwtToken']),
-                ReadySessionTimestamp::fromInteger($data['timestamp'])
+                ReadySessionId::fromString($data[self::READY_SESSION_ID]),
+                ReadySessionBase64Image::fromString($data[self::BASE_64_QR]),
+                ReadySessionJwtToken::fromString($data[self::JWK_TOKEN]),
+                ReadySessionTimestamp::fromInteger($data[self::EXPIRY_TIMESTAMP])
             );
         } catch (RuntimeException $exception) {
             throw new NotNormalizableValueException($exception->getMessage(), $exception->getCode(), $exception);

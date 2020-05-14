@@ -4,79 +4,62 @@ declare(strict_types=1);
 
 namespace StepupReadId\Infrastructure\Services\ReadySession;
 
-use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionAuthorizationException;
-use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionBadRequestException;
 use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionConnectionException;
 use StepupReadId\Domain\ReadySession\Model\ReadySession;
-use StepupReadId\Domain\ReadySession\Model\ReadySessionBase64Image;
-use StepupReadId\Domain\ReadySession\Model\ReadySessionId;
-use StepupReadId\Domain\ReadySession\Model\ReadySessionJwtToken;
-use StepupReadId\Domain\ReadySession\Model\ReadySessionTimestamp;
+use StepupReadId\Domain\ReadySession\Model\ReadySessionOpaqueId;
 use StepupReadId\Domain\ReadySession\Model\ReadySessionTTL;
 use StepupReadId\Domain\ReadySession\Services\RequestReadySessionInterface;
+use StepupReadId\Infrastructure\Services\ReadId\ReadIdClientInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use function array_diff_key;
-use function array_flip;
-use function intval;
 
 final class HttpRequestReadySession implements RequestReadySessionInterface
 {
-    public const READY_SESSION_ID = 'readySessionID';
-    public const BASE_64_QR       = 'base64QR';
-    public const JWK_TOKEN        = 'jwtToken';
-    public const EXPIRY_TIMESTAMP = 'expiryTimestamp';
+    public const CREATE_READY_SESSION_ENDPOINT_PATH = '/odata/v1/ODataServlet/createReadySession';
 
-    /** @var ReadySessionClientInterface */
-    private $httpReadIDClient;
+    /** @var ReadIdClientInterface */
+    private $httpSubmitterClient;
+    /** @var SerializerInterface */
+    private $serializer;
 
-    public function __construct(ReadySessionClientInterface $httpReadIDClient)
+    public function __construct(ReadIdClientInterface $httpSubmitterClient, SerializerInterface $serializer)
     {
-        $this->httpReadIDClient = $httpReadIDClient;
+        $this->httpSubmitterClient = $httpSubmitterClient;
+        $this->serializer          = $serializer;
     }
 
-    public function with(ReadySessionTTL $ttl): ReadySession
+    public function with(ReadySessionOpaqueId $opaqueId, ReadySessionTTL $qrCodeTtl): ReadySession
     {
-        $response = $this->httpReadIDClient->createReadySession($ttl->value());
+        $response = $this->httpSubmitterClient->post(
+            self::CREATE_READY_SESSION_ENDPOINT_PATH,
+            [
+                'opaqueID' => $opaqueId->value(),
+                'TTL' => $qrCodeTtl->value(),
+            ]
+        );
 
         try {
             if ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
-                throw new RequestReadySessionAuthorizationException();
+                throw RequestReadySessionConnectionException::becauseUnauthorized();
             }
 
             if ($response->getStatusCode() !== Response::HTTP_CREATED) {
-                throw new RequestReadySessionBadRequestException();
+                throw RequestReadySessionConnectionException::becauseBadRequest($response->getStatusCode());
             }
 
-            $decodedPayload = $response->toArray();
-            $this->checkPayload($decodedPayload);
+            $payload = $response->getContent();
         } catch (TransportExceptionInterface $e) {
             throw RequestReadySessionConnectionException::becauseTransportError($e->getMessage());
         }
 
-        return ReadySession::create(
-            ReadySessionId::fromString($decodedPayload[self::READY_SESSION_ID]),
-            ReadySessionBase64Image::fromString($decodedPayload[self::BASE_64_QR]),
-            ReadySessionJwtToken::fromString($decodedPayload[self::JWK_TOKEN]),
-            ReadySessionTimestamp::fromInteger(intval($decodedPayload[self::EXPIRY_TIMESTAMP]))
-        );
-    }
-
-    /**
-     * @param array<string,string> $decodedPayload
-     */
-    private function checkPayload(array $decodedPayload): void
-    {
-        if (array_diff_key(
-            array_flip([
-                self::READY_SESSION_ID,
-                self::BASE_64_QR,
-                self::JWK_TOKEN,
-                self::EXPIRY_TIMESTAMP,
-            ]),
-            $decodedPayload
-        )) {
+        try {
+            $readySession = $this->serializer->deserialize($payload, ReadySession::class, 'json');
+        } catch (NotNormalizableValueException $e) {
             throw RequestReadySessionConnectionException::becauseResponseIsInvalid();
         }
+
+        return $readySession;
     }
 }
