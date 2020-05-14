@@ -5,33 +5,36 @@ declare(strict_types=1);
 namespace StepupReadId\Infrastructure\Controller;
 
 use Psr\Log\LoggerInterface;
+use StepupReadId\Application\ReadySession\GetStoredReadySessionQuery;
 use StepupReadId\Infrastructure\Exception\NoActiveAuthnRequestException;
-use StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandlerInterface;
 use Surfnet\GsspBundle\Service\AuthenticationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\HandleTrait;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/authentication", name="readid_authentication")
  */
 class AuthenticationController extends AbstractController
 {
+    use HandleTrait;
+
     /** @var AuthenticationService */
     private $authenticationService;
     /** @var LoggerInterface */
     private $logger;
-    /** @var ReadySessionStateHandlerInterface */
-    private $readySessionStateHandler;
 
     public function __construct(
         AuthenticationService $authenticationService,
         LoggerInterface $logger,
-        ReadySessionStateHandlerInterface $readySessionStateHandler
+        MessageBusInterface $messageBus
     ) {
-        $this->authenticationService    = $authenticationService;
-        $this->logger                   = $logger;
-        $this->readySessionStateHandler = $readySessionStateHandler;
+        $this->authenticationService = $authenticationService;
+        $this->logger                = $logger;
+        $this->messageBus            = $messageBus;
     }
 
     public function __invoke(): Response
@@ -52,8 +55,12 @@ class AuthenticationController extends AbstractController
             return $this->authenticationService->replyToServiceProvider();
         }
 
-        $readySession = $this->readySessionStateHandler->getReadySession();
+        $readySession = $this->handle(new GetStoredReadySessionQuery());
 
-        return $this->render('default/authentication.html.twig', ['readySession' => $readySession]);
+        return $this->render('default/authentication.html.twig', [
+            'readySession' => $readySession,
+            'verifyUrl' => $this->generateUrl('verify-ready-session', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'returnUrl' => $this->generateUrl('readid_saml_sso_return', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
     }
 }
