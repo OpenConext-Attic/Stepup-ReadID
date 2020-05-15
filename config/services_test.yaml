@@ -9,6 +9,7 @@ services:
     # test.App\Service\MyService: '@App\Service\MyService'
 
     test.StepupReadId\Application\PendingSession\ConfirmPendingSessionCommandHandler: '@StepupReadId\Application\PendingSession\ConfirmPendingSessionCommandHandler'
+    test.StepupReadId\Application\PendingSession\GetPendingSessionQueryHandler: '@StepupReadId\Application\PendingSession\GetPendingSessionQueryHandler'
     test.StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler: '@StepupReadId\Application\ReadySession\CreateReadySessionCommandHandler'
     test.StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler: '@StepupReadId\Application\ReadySession\GetStoredReadySessionQueryHandler'
     test.StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler: '@StepupReadId\Application\PendingSession\RegisterPendingSessionCommandHandler'
