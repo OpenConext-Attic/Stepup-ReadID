@@ -14,23 +14,28 @@ final class Session
     private $expiryDate;
     /** @var ReadySessionId */
     private $readySessionId;
+    /** @var SessionDocument */
+    private $sessionDocument;
 
     private function __construct(
         SessionId $id,
         SessionExpiryDate $expiryDate,
+        SessionDocument $sessionDocument,
         ReadySessionId $readySessionId
     ) {
-        $this->id             = $id;
-        $this->expiryDate     = $expiryDate;
-        $this->readySessionId = $readySessionId;
+        $this->id              = $id;
+        $this->expiryDate      = $expiryDate;
+        $this->readySessionId  = $readySessionId;
+        $this->sessionDocument = $sessionDocument;
     }
 
     public static function create(
         SessionId $id,
         SessionExpiryDate $expiryDate,
+        SessionDocument $sessionDocument,
         ReadySessionId $readySessionId
     ): Session {
-        return new self($id, $expiryDate, $readySessionId);
+        return new self($id, $expiryDate, $sessionDocument, $readySessionId);
     }
 
     public function id(): SessionId
@@ -41,6 +46,11 @@ final class Session
     public function expiryDate(): SessionExpiryDate
     {
         return $this->expiryDate;
+    }
+
+    public function document(): SessionDocument
+    {
+        return $this->sessionDocument;
     }
 
     public function readySessionId(): ReadySessionId
