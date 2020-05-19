@@ -21,9 +21,10 @@ declare(strict_types=1);
 namespace StepupReadId\Infrastructure\Controller;
 
 use Psr\Log\LoggerInterface;
-use StepupReadId\Application\ReadySession\GetReadySessionQuery;
+use StepupReadId\Application\PendingSession\RegisterPendingSessionCommand;
+use StepupReadId\Application\ReadySession\CreateReadySessionCommand;
 use StepupReadId\Domain\ReadySession\Model\ReadySession;
-use StepupReadId\Infrastructure\Services\ReadySession\ReadySessionStateHandlerInterface;
+use StepupReadId\Domain\ReadySession\Model\ReadySessionTTL;
 use Surfnet\GsspBundle\Saml\ResponseContextInterface;
 use Surfnet\GsspBundle\Service\StateHandlerInterface;
 use Surfnet\SamlBundle\SAML2\AuthnRequest;
@@ -47,23 +48,23 @@ final class SingleSignOnController extends AbstractController
     private $logger;
     /** @var StateHandlerInterface */
     private $stateHandler;
-    /** @var ReadySessionStateHandlerInterface */
-    private $readySessionStateHandler;
     /** @var ResponseContextInterface */
     private $responseContext;
+    /** @var string */
+    private $readIdOpaqueId;
 
     public function __construct(
         StateHandlerInterface $stateHandler,
         LoggerInterface $logger,
-        MessageBusInterface $queryBus,
-        ReadySessionStateHandlerInterface $readySessionStateHandler,
-        ResponseContextInterface $responseContext
+        MessageBusInterface $messageBus,
+        ResponseContextInterface $responseContext,
+        string $readIdOpaqueId
     ) {
-        $this->stateHandler             = $stateHandler;
-        $this->logger                   = $logger;
-        $this->messageBus               = $queryBus;
-        $this->readySessionStateHandler = $readySessionStateHandler;
-        $this->responseContext          = $responseContext;
+        $this->stateHandler    = $stateHandler;
+        $this->logger          = $logger;
+        $this->messageBus      = $messageBus;
+        $this->responseContext = $responseContext;
+        $this->readIdOpaqueId  = $readIdOpaqueId;
     }
 
     public function __invoke(Request $request, ReceivedAuthnRequest $authnRequest): Response
@@ -85,13 +86,7 @@ final class SingleSignOnController extends AbstractController
             'AuthnRequest stored in state'
         ));
 
-        $readySession = $this->requestNewReadySession();
-
-        $this->readySessionStateHandler->saveReadySession($readySession);
-
-        $this->logger->info(sprintf(
-            'ReadySession stored in state'
-        ));
+        $this->registerNewReadySession();
 
         $this->logger->notice(sprintf(
             'Redirect user to the application authentication route'
@@ -105,8 +100,33 @@ final class SingleSignOnController extends AbstractController
         return $request->get(AuthnRequest::PARAMETER_RELAY_STATE, '');
     }
 
+    private function registerNewReadySession(): void
+    {
+        $readySession = $this->requestNewReadySession();
+
+        $this->logger->info(sprintf(
+            'ReadySession stored in state'
+        ));
+
+        $this->messageBus->dispatch(
+            new RegisterPendingSessionCommand(
+                $readySession->id()->value(),
+                $readySession->timestamp()->value()
+            )
+        );
+
+        $this->logger->info(sprintf(
+            'Pending session stored in cache'
+        ));
+    }
+
     private function requestNewReadySession(): ReadySession
     {
-        return $this->handle(GetReadySessionQuery::withMinimumTTL());
+        return $this->handle(
+            new CreateReadySessionCommand(
+                $this->readIdOpaqueId,
+                ReadySessionTTL::MINIMUM_TTL
+            )
+        );
     }
 }
