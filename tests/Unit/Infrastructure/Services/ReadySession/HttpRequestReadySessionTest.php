@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace StepupReadId\Tests\Unit\Infrastructure\Services;
+namespace StepupReadId\Tests\Unit\Infrastructure\Services\ReadySession;
 
 use PHPUnit\Framework\TestCase;
 use StepupReadId\Domain\ReadySession\Exception\RequestReadySessionConnectionException;
