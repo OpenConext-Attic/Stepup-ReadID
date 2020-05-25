@@ -67,3 +67,8 @@ services:
         arguments:
             - '@stepup.http.read_id.submitter.client'
             - '@serializer'
+
+    StepupReadId\Infrastructure\Services\Session\HttpRequestSession:
+        arguments:
+            - '@stepup.http.read_id.viewer.client'
+            - '@serializer'

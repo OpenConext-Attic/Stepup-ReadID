@@ -6,7 +6,7 @@ namespace StepupReadId\Domain\Session\Exception;
 
 use InvalidArgumentException;
 
-class InvalidSessionExpiryDate extends InvalidArgumentException
+final class InvalidSessionExpiryDateException extends InvalidArgumentException
 {
     public static function becauseNoValidISOString(string $expiryDateISO): self
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace StepupReadId\Domain\Session\Model;
 
 use DateTimeImmutable;
-use StepupReadId\Domain\Session\Exception\InvalidSessionExpiryDate;
+use StepupReadId\Domain\PendingSession\Exception\InvalidPendingSessionExpiryDate;
 use Throwable;
 
 final class SessionExpiryDate
@@ -23,7 +23,7 @@ final class SessionExpiryDate
         try {
             return new self(new DateTimeImmutable($expiryDateISO));
         } catch (Throwable $e) {
-            throw InvalidSessionExpiryDate::becauseNoValidISOString($expiryDateISO);
+            throw InvalidPendingSessionExpiryDate::becauseNoValidISOString($expiryDateISO);
         }
     }
 
