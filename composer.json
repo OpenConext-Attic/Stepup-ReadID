@@ -99,5 +99,10 @@
             "require": "4.4.*",
             "id": "01E1E5243E8KCCCXW2APD59PQR"
         }
+    },
+    "archive": {
+        "exclude": [
+            "/node_modules"
+        ]
     }
 }
