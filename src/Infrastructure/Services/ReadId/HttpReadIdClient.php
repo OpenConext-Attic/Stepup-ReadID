@@ -9,6 +9,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use function sprintf;
 
+use Psr\Log\LoggerInterface;
+
 final class HttpReadIdClient implements ReadIdClientInterface
 {
     /** @var HttpClientInterface */
@@ -17,12 +19,15 @@ final class HttpReadIdClient implements ReadIdClientInterface
     private $readIdServerFqdn;
     /** @var string */
     private $authorizationToken;
+    /** @var LoggerInterface */
+    private $logger;
 
-    public function __construct(HttpClientInterface $client, string $readIdServerFqdn, string $authorizationToken)
+    public function __construct(HttpClientInterface $client, string $readIdServerFqdn, string $authorizationToken, LoggerInterface $logger)
     {
         $this->client             = $client;
         $this->readIdServerFqdn   = $readIdServerFqdn;
         $this->authorizationToken = $authorizationToken;
+        $this->logger             = $logger;
     }
 
     /**
@@ -30,13 +35,32 @@ final class HttpReadIdClient implements ReadIdClientInterface
      */
     public function get(string $url, array $args = []): ResponseInterface
     {
-        return $this->client->request(
+        $argjson=json_encode($args);
+        $this->logger->info( sprintf(
+            'ReadId::get("%s", %s)',
+            $url, $argjson
+            )
+        );
+        /** @var ResponseInterface */
+        $res=$this->client->request(
             Request::METHOD_GET,
             $this->getEndpoint($url, $args),
             [
                 'headers' => $this->authorizationHeader(),
             ]
         );
+        /** @var int */
+        $statusCode=$res->getStatusCode();
+        /** @var string */
+        $content=$res->getContent(false);
+        $this->logger->info( sprintf(
+                'ReadId::get ==> StatusCode=%i; Content="%s"',
+                $statusCode,
+                $content
+            )
+        );
+
+        return $res;
     }
 
     /**
@@ -44,7 +68,15 @@ final class HttpReadIdClient implements ReadIdClientInterface
      */
     public function post(string $url, array $body, array $args = []): ResponseInterface
     {
-        return $this->client->request(
+        $bodyjson=json_encode($body);
+        $argjson=json_encode($args);
+        $this->logger->info( sprintf(
+                'ReadId::post("%s", %s, %s)',
+                $url, $bodyjson, $argjson
+            )
+        );
+        /** @var ResponseInterface */
+        $res=$this->client->request(
             Request::METHOD_POST,
             $this->getEndpoint($url, $args),
             [
@@ -52,6 +84,18 @@ final class HttpReadIdClient implements ReadIdClientInterface
                 'json' => $body,
             ]
         );
+        /** @var int */
+        $statusCode=$res->getStatusCode();
+        /** @var string */
+        $content=$res->getContent(false);
+        $this->logger->info( sprintf(
+                'ReadId::post ==> StatusCode=%i; Content="%s"',
+                $statusCode,
+                $content
+            )
+        );
+
+        return $res;
     }
 
     /**

@@ -22,3 +22,8 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ["php"]
+        debug:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%_debug.log"
+            level: debug
+            channels: ["!event"]

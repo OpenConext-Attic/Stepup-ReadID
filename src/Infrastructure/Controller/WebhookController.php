@@ -81,6 +81,11 @@ final class WebhookController extends AbstractController
     {
         $parameters = [];
         $content    = $request->getContent();
+
+        $this->logger->info( sprintf(
+            'Webhook received content: %s',
+             $content) );
+
         if ($content) {
             $parameters = json_decode($content, true);
         }
