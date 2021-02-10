@@ -15,6 +15,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+use StepupReadId\Application\ReadySession\
+
 /**
  * @Route("/authentication", name="readid_authentication")
  */
@@ -54,6 +56,7 @@ class AuthenticationController extends AbstractController
 
             return $this->authenticationService->replyToServiceProvider();
         }
+        $this->logger->info('Authentication is not finalized');
 
         $readySession = $this->handle(new GetStoredReadySessionQuery());
 

@@ -9,8 +9,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use function sprintf;
 
-use Psr\Log\LoggerInterface;
-
 final class HttpReadIdClient implements ReadIdClientInterface
 {
     /** @var HttpClientInterface */
@@ -19,15 +17,12 @@ final class HttpReadIdClient implements ReadIdClientInterface
     private $readIdServerFqdn;
     /** @var string */
     private $authorizationToken;
-    /** @var LoggerInterface */
-    private $logger;
 
-    public function __construct(HttpClientInterface $client, string $readIdServerFqdn, string $authorizationToken, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, string $readIdServerFqdn, string $authorizationToken)
     {
         $this->client             = $client;
         $this->readIdServerFqdn   = $readIdServerFqdn;
         $this->authorizationToken = $authorizationToken;
-        $this->logger             = $logger;
     }
 
     /**
@@ -36,7 +31,7 @@ final class HttpReadIdClient implements ReadIdClientInterface
     public function get(string $url, array $args = []): ResponseInterface
     {
         $argjson=json_encode($args);
-        $this->logger->info( sprintf(
+        syslog(LOG_INFO, sprintf(
             'ReadId::get("%s", %s)',
             $url, $argjson
             )
@@ -53,8 +48,8 @@ final class HttpReadIdClient implements ReadIdClientInterface
         $statusCode=$res->getStatusCode();
         /** @var string */
         $content=$res->getContent(false);
-        $this->logger->info( sprintf(
-                'ReadId::get ==> StatusCode=%i; Content="%s"',
+        syslog(LOG_INFO, sprintf(
+                'ReadId::get ==> StatusCode=%u; Content="%s"',
                 $statusCode,
                 $content
             )
@@ -70,7 +65,7 @@ final class HttpReadIdClient implements ReadIdClientInterface
     {
         $bodyjson=json_encode($body);
         $argjson=json_encode($args);
-        $this->logger->info( sprintf(
+        syslog(LOG_INFO, sprintf(
                 'ReadId::post("%s", %s, %s)',
                 $url, $bodyjson, $argjson
             )
@@ -88,8 +83,8 @@ final class HttpReadIdClient implements ReadIdClientInterface
         $statusCode=$res->getStatusCode();
         /** @var string */
         $content=$res->getContent(false);
-        $this->logger->info( sprintf(
-                'ReadId::post ==> StatusCode=%i; Content="%s"',
+        syslog(LOG_INFO, sprintf(
+                'ReadId::post ==> StatusCode=%u; Content="%s"',
                 $statusCode,
                 $content
             )

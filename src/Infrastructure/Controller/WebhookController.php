@@ -41,7 +41,18 @@ final class WebhookController extends AbstractController
 
     public function __invoke(Request $request, string $token): Response
     {
+        // Get RAW HTTP body content
+        $content=$request->getContent();
+        $this->logger->info( sprintf(
+            'Received ReadID webhook request with content: "%s"',
+            $content )
+        );
+        syslog( LOG_INFO, sprintf(
+            'Received ReadID webhook request with content: "%s"',
+            $content )
+        );
         $this->checkValidWebhookController($token);
+        syslog( LOG_INFO, 'Webhook controller token is valid, continuing' );
 
         $parameters = $this->getSessionParametersFromRequest($request);
 
