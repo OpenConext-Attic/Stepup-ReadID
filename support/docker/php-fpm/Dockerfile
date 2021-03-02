@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     zip
 
 # Composer
-RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer
+RUN curl -sL https://getcomposer.org/installer | php -- --1 --install-dir /usr/bin --filename composer
 RUN mkdir -ma+w /.composer
 
 # Cleanup
