@@ -1,9 +1,9 @@
 # Web application ignores #
 ###########################
+/.idea/
 /.web-server-pid
 /config/packages/parameters.yaml
 /config/packages/institutions.yaml
-/build/
 /var/*
 !/var/cache
 /var/cache/*
@@ -16,7 +16,8 @@
 !var/SymfonyRequirements.php
 /vendor/
 /node_modules/
-/web/build
+/public/build
+/local-php-security-checker
 .env
 
 ###> symfony/framework-bundle ###

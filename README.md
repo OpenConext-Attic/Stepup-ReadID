@@ -22,6 +22,7 @@ All development could be done in-container. If you opt to run this application o
 
 - PHP 7.2
 - Composer
+- NodeJS 14
 
 Install
 -------------------

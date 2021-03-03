@@ -19,6 +19,7 @@
 {% block javascripts %}
     <script>
         const image="{{ readySession.qrCode.value }}";
+        const timeOutMessage="Unable to process verification"
     </script>
     {{ encore_entry_script_tags('authentication') }}
 {% endblock %}

@@ -66,7 +66,8 @@
 
     "types": [
       /* Type declaration files to be included in compilation. */
-      "@types/jest"
+      "@types/jest",
+      "@testing-library/jest-dom"
     ],
     // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true,
@@ -90,6 +91,7 @@
     "vendor", "node_modules"
   ],
   "include": [
-    "assets/typescript"
+    "assets/typescript",
+    "./jest-setup.ts"
   ]
 }
