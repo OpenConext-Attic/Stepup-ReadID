@@ -107,7 +107,6 @@
     "archive": {
         "exclude": [
             "node_modules/",
-            "!public/build",
             "!public/build"
         ]
     }
