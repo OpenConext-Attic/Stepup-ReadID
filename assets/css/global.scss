@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap/scss/variables";
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/variables';
 
 .main-content {
   margin: 2rem 4rem;
@@ -32,7 +32,7 @@ body {
     padding: 0;
 
     @include media-breakpoint-up(lg) {
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       margin-top: 2rem;
     }
 
@@ -43,7 +43,7 @@ body {
     }
 
     .content {
-      border-bottom: 1px solid #EAEAEA;
+      border-bottom: 1px solid #eaeaea;
     }
   }
 
@@ -75,4 +75,3 @@ div.page-header {
     max-height: 90px;
   }
 }
-
