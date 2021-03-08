@@ -17,6 +17,9 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y \
     nodejs
 
+# Install Yarn
+RUN npm install --global yarn
+
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
