@@ -5,6 +5,11 @@ monolog:
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             channels: ["!event"]
+        main_syslog:
+            type: syslog
+            ident: stepup-readid
+            facility: user
+            formatter: 'monolog.formatter.json'
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
