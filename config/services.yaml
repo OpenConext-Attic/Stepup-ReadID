@@ -10,6 +10,7 @@ parameters:
     surfnet_readid.webhook_token: '%env(string:APP_WEBHOOK_TOKEN)%'
     surfnet_readid.opaque_id: '%env(string:APP_OPAQUE_ID)%'
     surfnet_readid.attributes_mapping: '%env(json:APP_ATTRIBUTES_MAPPING)%'
+    surfnet_readid.supported_locales: ["nl","en"]
 
 services:
     # default configuration for services in *this* file
@@ -72,6 +73,11 @@ services:
         arguments:
             - '@stepup.http.read_id.viewer.client'
             - '@serializer'
+
+    StepupReadId\Infrastructure\Locale\LocaleSubscriber:
+        arguments:
+            - '%surfnet_readid.supported_locales%'
+            - '%kernel.default_locale%'
 
     surf.monolog.json_formatter:
         class: StepupReadId\Infrastructure\Logger\Formatter\JsonFormatter

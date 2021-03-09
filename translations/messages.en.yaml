@@ -3,3 +3,6 @@ readid.error_message_intro: 'Sorry, something went wrong, please try again.'
 site_title: ReadID
 readid.page_not_found.title: 'Page not found'
 readid.page_not_found_intro: 'The requested page does not exists'
+readid.authorization.title: 'Verifying identity'
+readid.authorization.text: "The personal data is being validated by ReadID.\n\nPlease stand by while ReadID is handling your verification.\n"
+readid.authorization.timeout_message: 'No verification result was received in time from ReadId, please try again later.'
