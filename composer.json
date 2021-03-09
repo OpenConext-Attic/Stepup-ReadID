@@ -26,7 +26,8 @@
         "symfony/translation": "4.4.*",
         "symfony/twig-pack": "*",
         "symfony/webpack-encore-bundle": "^1.7",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "ext-json": "*"
     },
     "require-dev": {
         "ext-json": "*",
@@ -79,7 +80,8 @@
             "@phpstan",
             "@deptrac",
             "@test",
-            "@security"
+            "@security",
+            "@jest"
         ],
         "security": "./support/qa/security",
         "phplint": "./support/qa/phplint",
@@ -88,7 +90,9 @@
         "phpmd": "./support/qa/phpmd",
         "phpstan": "./support/qa/phpstan",
         "deptrac": "./support/qa/deptrac",
-        "test": "./support/qa/phpunit"
+        "test": "./support/qa/phpunit",
+        "jest": "yarn jest",
+        "eslint": "yarn lint"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -102,7 +106,8 @@
     },
     "archive": {
         "exclude": [
-            "/node_modules"
+            "node_modules/",
+            "!public/build"
         ]
     }
 }

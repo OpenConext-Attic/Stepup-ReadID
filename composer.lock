@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c52690f10e29a60463c4c9a6d4b895c",
+    "content-hash": "d164de8505d974f78b21b72baa1af890",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -5556,6 +5556,7 @@
                 }
             ],
             "description": "deptrac phar distribution",
+            "abandoned": "qossmic/deptrac-shim",
             "time": "2019-10-18T14:03:03+00:00"
         },
         {
@@ -5604,6 +5605,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
+            "abandoned": "https://github.com/fabpot/local-php-security-checker",
             "time": "2019-11-01T13:20:14+00:00"
         },
         {
@@ -6433,7 +6435,8 @@
     "platform": {
         "php": "^7.2.5",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-json": "*"
     },
     "platform-dev": {
         "ext-json": "*"
