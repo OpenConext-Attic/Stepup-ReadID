@@ -10,4 +10,4 @@ monolog:
             type: syslog
             ident: stepup-readid
             facility: user
-            formatter: surfnet_stepup.monolog.json_formatter
+            formatter: 'surf.monolog.json_formatter'
