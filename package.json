@@ -51,6 +51,18 @@
         "lint": "eslint --ext ts,tsx ./assets",
         "lint:fix": "prettier-eslint 'assets/**/*.{ts,tsx}' --write"
     },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
     "dependencies": {
         "@testing-library/react": "^11.2.5",
         "react": "^17.0.1",

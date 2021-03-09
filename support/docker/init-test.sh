@@ -14,5 +14,6 @@ docker-compose exec -T php-fpm.readid.stepup.example.com bash -c '
 
 # Install frontend dependencies
 docker-compose exec -T php-fpm.readid.stepup.example.com bash -c '
-  yarn install --frozen-lockfile
+  yarn install --frozen-lockfile && \
+  yarn build
 '
