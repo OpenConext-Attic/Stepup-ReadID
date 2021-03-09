@@ -9,7 +9,7 @@ monolog:
             type: syslog
             ident: stepup-readid
             facility: user
-            formatter: 'monolog.formatter.json'
+            formatter: 'surf.monolog.json_formatter'
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
