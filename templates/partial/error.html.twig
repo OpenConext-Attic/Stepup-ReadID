@@ -1,0 +1,15 @@
+<div class="d-flex flex-column-reverse flex-lg-row align-content-center">
+    <div class="p-2">
+        <h2>{{ title }}</h2>
+        {% if intro is not null %}
+            <p>
+                {{ intro }}
+            </p>
+        {% endif %}
+        {% if message is not null %}
+            <p>
+                {{ message }}
+            </p>
+        {% endif %}
+    </div>
+</div>

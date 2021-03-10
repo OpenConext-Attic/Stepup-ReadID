@@ -1,0 +1,11 @@
+{% set page_title = 'readid.page_not_found.title'|trans %}
+{% set intro = 'readid.page_not_found_intro'|trans ~ logs %}
+{% set title = 'readid.page_not_found.title'|trans %}
+
+{% extends 'base.html.twig' %}
+
+{% block page_title %}{% endblock %}
+
+{% block body %}
+    {% include('partial/error.html.twig') %}
+{% endblock %}

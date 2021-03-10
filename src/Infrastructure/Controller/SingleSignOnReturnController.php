@@ -60,9 +60,9 @@ final class SingleSignOnReturnController extends AbstractController
                 return $this->ssoAuthenticationReturnAction();
             }
         } catch (RuntimeException $e) {
-            return $this->render('default/unrecoverableError.html.twig', [
-                'message' => $e->getMessage(),
-            ], new Response('', Response::HTTP_NOT_ACCEPTABLE));
+            $this->logger->alert('Unable to handle return action: ' . $e->getMessage());
+
+            throw $e;
         }
 
         throw new UnrecoverableErrorException('Application state invalid');

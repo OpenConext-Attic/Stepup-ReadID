@@ -1,0 +1,5 @@
+readid.error.title: 'Sorry, er ging iets mis'
+readid.error_message_intro: 'Er is iets mis gegaan, probeer het opnieuw'
+site_title: ReadID
+readid.page_not_found.title: 'Page niet gevonden'
+readid.page_not_found_intro: 'De opgevraagde pagina bestaat niet'
