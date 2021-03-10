@@ -9,11 +9,13 @@ use StepupReadId\Application\ReadySession\GetStoredReadySessionQuery;
 use StepupReadId\Infrastructure\Exception\NoActiveAuthnRequestException;
 use Surfnet\GsspBundle\Service\AuthenticationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use function sprintf;
 
 /**
  * @Route("/authentication", name="readid_authentication")
@@ -52,7 +54,7 @@ class AuthenticationController extends AbstractController
         if ($this->authenticationService->isAuthenticated()) {
             $this->logger->info('Authentication is finalized returning to service provider');
 
-            return $this->authenticationService->replyToServiceProvider();
+            return $this->replyToServiceProvider();
         }
 
         $readySession = $this->handle(new GetStoredReadySessionQuery());
@@ -62,5 +64,13 @@ class AuthenticationController extends AbstractController
             'verifyUrl' => $this->generateUrl('verify-ready-session', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'returnUrl' => $this->generateUrl('readid_saml_sso_return', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
+    }
+
+    private function replyToServiceProvider(): RedirectResponse
+    {
+        $url = $this->generateUrl('readid_saml_sso_return');
+        $this->logger->notice(sprintf('Created redirect response for sso return endpoint "%s"', $url));
+
+        return new RedirectResponse($url);
     }
 }
