@@ -35,6 +35,9 @@
     "ibuildings/qa-pack": {
         "version": "v1.8"
     },
+    "malukenho/docheader": {
+        "version": "0.1.8"
+    },
     "monolog/monolog": {
         "version": "2.0.2"
     },
