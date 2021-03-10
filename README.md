@@ -31,6 +31,9 @@ Install
 1. Edit the `.env` file with the editor of your choice and: 
     1. Update the `APP_SECRET` to a value of your liking. See [Symfony docs](https://symfony.com/doc/current/reference/configuration/framework.html#secret) for more details about this secret. 
     1. Set the `APP_ENV` to 'dev'
+    1. Set the `APP_ATTRIBUTES_MAPPING` with a json key value pair:
+
+       ```'{"readIdAttribute1":"samlAttribute1", "readIdAttribute1":"samlAttribute1"}'```
 
 **Copy the parameters.yaml**
 
@@ -38,13 +41,14 @@ Install
 
 **Bring up Docker**
 
+The scrip below will also install the required Yarn and Composer development dependencies and finally build the Encore web assets.
 ```
 $ ./support/docker/init.sh
 ```
 
-If everything goes as intended, you can develop in the virtual machine.
+If everything goes as intended, you can develop in the container.
 
-The machine should be available at: [127.43.33.34:443](https://127.43.33.34:443). Feel free to add a `hosts` file entry,
+The container should be available at: [127.43.33.34:443](https://127.43.33.34:443). Feel free to add a `hosts` file entry,
 I used: 
 
 [readid.stepup.example.com](https://readid.stepup.example.com)
@@ -99,6 +103,5 @@ Please read: https://github.com/OpenConext/Stepup-Deploy/wiki/Release-Management
 Other resources
 ======================
 
- - [Developer documentation](docs/index.md)
  - [Issue tracker](https://www.pivotaltracker.com/n/projects/1163646)
  - [License](LICENSE)
