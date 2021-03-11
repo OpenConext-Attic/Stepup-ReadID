@@ -1,3 +1,5 @@
-readid.unrecoverable_error: Unrecoverable error
-readid.unrecoverable_error_message_intro: Unrecoverable error
-readid.unrecoverable_error.title: Unrecoverable error
+readid.error.title: 'Oops, something went wrong'
+readid.error_message_intro: 'Sorry, something went wrong, please try again.'
+site_title: ReadID
+readid.page_not_found.title: 'Page not found'
+readid.page_not_found_intro: 'The requested page does not exists'
