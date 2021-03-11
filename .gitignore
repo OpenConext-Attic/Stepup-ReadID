@@ -19,7 +19,6 @@
 /public/build
 /local-php-security-checker
 .env
-component_info
 
 ###> symfony/framework-bundle ###
 /.env.local
