@@ -19,5 +19,3 @@ services:
     test.http.read_id.viewer.client: '@stepup.http.read_id.viewer.client'
     test.Symfony\Component\Messenger\MessageBusInterface: '@Symfony\Component\Messenger\MessageBusInterface'
     test.Symfony\Contracts\HttpClient\HttpClientInterface: '@Symfony\Contracts\HttpClient\HttpClientInterface'
-
-

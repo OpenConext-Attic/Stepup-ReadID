@@ -1,5 +1,8 @@
 readid.error.title: 'Sorry, er ging iets mis'
 readid.error_message_intro: 'Er is iets mis gegaan, probeer het opnieuw'
 site_title: ReadID
-readid.page_not_found.title: 'Page niet gevonden'
+readid.page_not_found.title: 'Pagina niet gevonden'
 readid.page_not_found_intro: 'De opgevraagde pagina bestaat niet'
+readid.authorization.title: Identiteitscontrole
+readid.authorization.text: "Uw persoonsgegevens worden gecontroleerd door ReadID.\n\nEén moment geduld alstublieft, ReadID behandeld uw verificatie.\n"
+readid.authorization.timeout_message: 'Er is geen verificatie status ontvangen van ReadID, probeer het later opnieuw.'
