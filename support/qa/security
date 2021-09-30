@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+printf "\n\nRunning Symfony Security Checker\n================================\n\n"
 cd $(dirname $0)/../../
 
 if [ ! -f local-php-security-checker ]
@@ -9,3 +10,6 @@ then
 fi
 
 ./local-php-security-checker
+rm local-php-security-checker
+printf "\n\nRunning Yarn Audit\n==================\n\n"
+yarn audit
