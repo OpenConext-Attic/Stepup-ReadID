@@ -18,7 +18,7 @@ class WebhookControllerTest extends WebTestCase
         $client->request('POST', '/webhook/invalid_webhook_token');
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
-        $this->assertContains('Invalid token', $client->getResponse()->getContent());
+        $this->assertStringContainsStringIgnoringCase('Invalid token', $client->getResponse()->getContent());
     }
 
     public function testInvalidPayload(): void
@@ -28,7 +28,7 @@ class WebhookControllerTest extends WebTestCase
         $client->request('POST', '/webhook/webhook_token');
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
-        $this->assertContains('Invalid message payload', $client->getResponse()->getContent());
+        $this->assertStringContainsStringIgnoringCase('Invalid message payload', $client->getResponse()->getContent());
     }
 
     public function testNotFoundPendingSession(): void
@@ -47,7 +47,7 @@ class WebhookControllerTest extends WebTestCase
         );
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
-        $this->assertContains(
+        $this->assertStringContainsStringIgnoringCase(
             'No pending session found with ReadySession id: ' . $readySessionId,
             $client->getResponse()->getContent()
         );
