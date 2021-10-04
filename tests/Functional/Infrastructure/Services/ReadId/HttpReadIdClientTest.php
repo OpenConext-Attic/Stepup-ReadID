@@ -14,6 +14,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class HttpReadIdClientTest extends KernelTestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function testRequestToSubmitterEndpoint(): void
     {
         self::bootKernel();
@@ -30,6 +33,9 @@ class HttpReadIdClientTest extends KernelTestCase
             ->get('/endpoint');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function testRequestToViewerEndpoint(): void
     {
         self::bootKernel();
@@ -47,6 +53,9 @@ class HttpReadIdClientTest extends KernelTestCase
             ->get('/endpoint');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function testGetRequest(): void
     {
         self::bootKernel();
@@ -65,6 +74,9 @@ class HttpReadIdClientTest extends KernelTestCase
             ->get('endpoint');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function testGetRequestWithArgs(): void
     {
         self::bootKernel();
