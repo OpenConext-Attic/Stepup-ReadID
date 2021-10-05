@@ -8,5 +8,6 @@ docker-compose up -d
 
 docker-compose exec -T php-fpm.readid.stepup.example.com bash -c '
   composer install --prefer-dist -n -o && \
-  ./bin/console cache:clear --env=test
+  ./bin/console cache:clear --env=test && \
+  yarn install --frozen-lockfile
 '
