@@ -12,7 +12,7 @@ framework:
     templating:
         engines:
             - twig
-    #esi: true
-    #fragments: true
+    esi: false
+    fragments: false
     php_errors:
         log: true
